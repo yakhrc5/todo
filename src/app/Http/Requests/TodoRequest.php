@@ -24,7 +24,7 @@ class TodoRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => ['required', 'string', 'max:20']
+            'content' => ['required', 'string', 'max:20', 'regex:/^[^0-9]+$/']
         ];
     }
     public function messages()
@@ -32,7 +32,8 @@ class TodoRequest extends FormRequest
         return [
             'content.required' => 'Todoを入力してください。',
             'content.string' => 'Todoを文字列で入力してください。',
-            'content.max' => 'Todoを20文字以下で入力してください。'
+            'content.max' => 'Todoを20文字以下で入力してください。',
+            'content.regex' => 'Todoに数字のみの入力はできません。'
         ];
     }
 }
