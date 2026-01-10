@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\TodoRequest;
 use App\Models\Todo;
+use Illuminate\Http\Request;
 
 
 class TodoController extends Controller
@@ -13,11 +14,28 @@ class TodoController extends Controller
         $todos = Todo::all();
         return view('index', compact('todos'));
     }
-    public function store(Request $request)
+    public function store(TodoRequest  $request)
+    {
+        $todo = Todo::create(
+            $request->only(['content'])
+        );
+
+        return redirect('/')
+            ->with('message', "Todoを作成しました（ID: {$todo->id}）");
+    
+    }
+    public function update(TodoRequest $request)
     {
         $todo = $request->only(['content']);
-        Todo::create($todo);
-
-        return redirect('/');
+        Todo::find($request->id)->update($todo);
+        
+        return redirect('/')
+            ->with('message', "Todoを更新しました（ID: {$request->id}）");
+    }
+    public function destroy(Request $request)
+    {
+        Todo::find($request->id)->delete();
+        return redirect('/')
+            ->with('message', "Todoを削除しました（ID: {$request->id}）");
     }
 }

@@ -90,11 +90,22 @@
 }
 
 .update-form__item {
+    display: flex;
+    align-items: center;
+        /* ←縦位置を中央で揃える */
     width: 80%;
     line-height: 50%;
 }
-
+.update-form__id {
+    font-size: 16px;
+    line-height: 1.2;
+    min-width: 3em;
+    text-align: right;
+    display: inline-block;
+    /* ←高さ調整が安定 */
+}
 .update-form__item-input {
+    font-size: 16px;
     width: 100%;
     outline: none;
     border: none;
